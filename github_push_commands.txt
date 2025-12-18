@@ -1,0 +1,41 @@
+COMMANDS TO PUSH CODE TO GITHUB
+=================================
+
+1. Initialize Git (if not already done)
+   -----------------------------------
+   git init
+
+2. Add all files to staging
+   ------------------------
+   git add .
+
+3. Commit your changes
+   -------------------
+   git commit -m "Initial commit - Full Stack E-commerce App"
+
+4. Create a new Repository on GitHub
+   ---------------------------------
+   - Go to https://github.com/new
+   - Name your repository (e.g., "ecommerce-project")
+   - Do NOT check "Add a README" (since we already have one)
+   - Click "Create repository"
+
+5. Link your local project to GitHub
+   ---------------------------------
+   (Replace <YOUR_GITHUB_URL> with the link from the page you just created,
+    e.g., https://github.com/username/ecommerce-project.git)
+
+   git branch -M main
+   git remote add origin <YOUR_GITHUB_URL>
+
+6. Push your code
+   --------------
+   git push -u origin main
+
+----------------------------------------------------------------------
+FUTURE UPDATES:
+Whenever you make changes, run these 3 commands:
+
+1. git add .
+2. git commit -m "Description of changes"
+3. git push
