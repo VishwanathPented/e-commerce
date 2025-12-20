@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import api from '../services/api';
 import { useAuth } from '../context/AuthContext';
+import { Heart } from 'lucide-react';
 
 const ProductCard = ({ product }) => {
     const { user } = useAuth();
@@ -53,20 +54,45 @@ const ProductCard = ({ product }) => {
                 <p className="mt-1 text-sm text-gray-500 dark:text-gray-400 line-clamp-2 flex-1">{product.description}</p>
                 <div className="mt-4 flex items-center justify-between">
                     <span className="text-xl font-bold text-gray-900 dark:text-white">₹{product.price}</span>
-                    <button
-                        onClick={handleAddToCart}
-                        disabled={adding}
-                        className={`text-sm font-medium px-4 py-2 rounded-md transition-colors ${adding
-                            ? 'bg-gray-100 dark:bg-gray-700 text-gray-400 cursor-not-allowed'
-                            : 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-100 dark:hover:bg-indigo-900/50'
-                            }`}
-                    >
-                        {adding ? 'Adding...' : 'Add to Cart'}
-                    </button>
+                    <div className="flex space-x-2">
+                        {/* Wishlist Button */}
+                        import {Heart} from 'lucide-react';
+
+                        // ... inside ProductCard component ...
+
+                        <button
+                            onClick={async () => {
+                                if (!user) {
+                                    navigate('/login');
+                                    return;
+                                }
+                                try {
+                                    await api.post(`/wishlist/add/${product.id}`);
+                                    alert('Added to wishlist!');
+                                } catch (error) {
+                                    console.error("Failed to add to wishlist", error);
+                                    alert('Failed to add to wishlist');
+                                }
+                            }}
+                            className="text-gray-400 hover:text-red-500 transition-colors p-2"
+                            title="Add to Wishlist"
+                        >
+                            <Heart size={20} />
+                        </button>
+                        <button
+                            onClick={handleAddToCart}
+                            disabled={adding}
+                            className={`text-sm font-medium px-4 py-2 rounded-md transition-colors ${adding
+                                ? 'bg-gray-100 dark:bg-gray-700 text-gray-400 cursor-not-allowed'
+                                : 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-100 dark:hover:bg-indigo-900/50'
+                                }`}
+                        >
+                            {adding ? 'Adding...' : 'Add to Cart'}
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
-    );
+            );
 };
 
-export default ProductCard;
+            export default ProductCard;

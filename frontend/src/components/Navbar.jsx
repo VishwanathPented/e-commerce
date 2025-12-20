@@ -16,7 +16,7 @@ const Navbar = () => {
     };
 
     return (
-        <nav className="bg-white dark:bg-gray-800 shadow-md transition-colors duration-200">
+        <nav className="sticky top-0 z-50 bg-white/80 dark:bg-gray-800/90 backdrop-blur-md shadow-md transition-colors duration-200">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between h-16">
                     <div className="flex items-center">
@@ -39,6 +39,13 @@ const Navbar = () => {
                         >
                             {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
                         </button>
+
+                        {/* Wishlist Link */}
+                        {user && (
+                            <Link to="/wishlist" className="p-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none transition-colors">
+                                <span role="img" aria-label="wishlist">❤️</span>
+                            </Link>
+                        )}
 
                         {/* Cart Logic: Only show if user is logged in */}
                         {user && (
@@ -101,6 +108,9 @@ const Navbar = () => {
                                 <Link to="/login" className="block text-center w-full px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700">Login</Link>
                                 <Link to="/register" className="block text-center w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-base font-medium text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">Sign Up</Link>
                             </div>
+                        )}
+                        {user && (
+                            <Link to="/wishlist" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700">My Wishlist</Link>
                         )}
                     </div>
                 </div>

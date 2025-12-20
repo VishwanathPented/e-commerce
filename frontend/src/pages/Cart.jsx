@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import api from '../services/api';
+import { ShoppingBag } from 'lucide-react';
 
 const Cart = () => {
     const [cart, setCart] = useState(null);
@@ -37,9 +38,15 @@ const Cart = () => {
 
     if (loading) return <div className="text-center py-10">Loading Cart...</div>;
     if (!cart || cart.items.length === 0) return (
-        <div className="text-center py-10">
-            <h2 className="text-2xl font-bold">Your Cart is Empty</h2>
-            <Link to="/" className="text-indigo-600 mt-4 inline-block">Go Shopping</Link>
+        <div className="text-center py-16">
+            <div className="flex justify-center mb-4">
+                <div className="p-4 bg-indigo-100 dark:bg-indigo-900 rounded-full">
+                    <ShoppingBag size={48} className="text-indigo-600 dark:text-indigo-400" />
+                </div>
+            </div>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Your Cart is Empty</h2>
+            <p className="text-gray-500 dark:text-gray-400 mb-6">Looks like you haven't added anything yet.</p>
+            <Link to="/" className="inline-block bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700 transition-colors">Start Shopping</Link>
         </div>
     );
 

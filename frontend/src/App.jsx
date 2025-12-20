@@ -7,6 +7,7 @@ import LandingPage from './pages/LandingPage';
 import ProductListing from './pages/ProductListing';
 import ProductDetails from './pages/ProductDetails';
 import Cart from './pages/Cart';
+import Wishlist from './pages/Wishlist';
 import Checkout from './pages/Checkout';
 import OrderHistory from './pages/OrderHistory';
 import { AuthProvider } from './context/AuthContext';
@@ -36,6 +37,7 @@ function App() {
 
               {/* Protected Routes */}
               <Route path="/cart" element={<PrivateRoute><Cart /></PrivateRoute>} />
+              <Route path="/wishlist" element={<PrivateRoute><Wishlist /></PrivateRoute>} />
               <Route path="/checkout" element={<PrivateRoute><Checkout /></PrivateRoute>} />
               <Route path="/orders" element={<PrivateRoute><OrderHistory /></PrivateRoute>} />
             </Routes>
