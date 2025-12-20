@@ -30,6 +30,10 @@ public class ProductService {
         return productRepository.findByCategory(category);
     }
 
+    public List<String> getAllCategories() {
+        return productRepository.findDistinctCategories();
+    }
+
     // Admin methods
     public Product addProduct(Product product) {
         return productRepository.save(product);

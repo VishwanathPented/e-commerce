@@ -38,6 +38,11 @@ public class ProductController {
         return ResponseEntity.ok(productService.searchProducts(q));
     }
 
+    @GetMapping("/categories")
+    public ResponseEntity<List<String>> getAllCategories() {
+        return ResponseEntity.ok(productService.getAllCategories());
+    }
+
     // Admin Endpoints
     // Note: In SecurityConfig we allowed public access to /api/products/**.
     // We should probably restrict POST/PUT/DELETE to ADMIN via PreAuthorize or SecurityConfig.

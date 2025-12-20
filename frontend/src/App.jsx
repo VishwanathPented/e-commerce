@@ -16,12 +16,15 @@ import AdminRoute from './components/AdminRoute';
 import AdminDashboard from './pages/AdminDashboard';
 import { ThemeProvider } from './context/ThemeContext';
 
+import { Toaster } from 'react-hot-toast';
+
 function App() {
   return (
     <Router>
       <ThemeProvider>
         <AuthProvider>
           <div className="bg-gray-100 dark:bg-gray-900 min-h-screen transition-colors duration-200">
+            <Toaster position="bottom-right" reverseOrder={false} />
             <Navbar />
             <Routes>
               <Route path="/" element={<LandingPage />} />

@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import api from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import { Heart } from 'lucide-react';
+import toast from 'react-hot-toast';
 
 const ProductCard = ({ product }) => {
     const { user } = useAuth();
@@ -28,10 +29,10 @@ const ProductCard = ({ product }) => {
                     quantity: 1
                 }
             });
-            alert('Added to cart successfully!');
+            toast.success('Added to cart successfully!');
         } catch (error) {
             console.error("Failed to add to cart", error);
-            alert('Failed to add to cart: ' + (error.response?.data?.message || error.message));
+            toast.error('Failed to add to cart: ' + (error.response?.data?.message || error.message));
         } finally {
             setAdding(false);
         }
@@ -64,10 +65,10 @@ const ProductCard = ({ product }) => {
                                 }
                                 try {
                                     await api.post(`/wishlist/add/${product.id}`);
-                                    alert('Added to wishlist!');
+                                    toast.success('Added to wishlist!');
                                 } catch (error) {
                                     console.error("Failed to add to wishlist", error);
-                                    alert('Failed to add to wishlist');
+                                    toast.error('Failed to add to wishlist');
                                 }
                             }}
                             className="text-gray-400 hover:text-red-500 transition-colors p-2"
@@ -88,7 +89,8 @@ const ProductCard = ({ product }) => {
                     </div>
                 </div>
             </div>
-            );
+        </div>
+    );
 };
 
-            export default ProductCard;
+export default ProductCard;
