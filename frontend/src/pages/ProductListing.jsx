@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import api from '../services/api';
 import ProductCard from '../components/ProductCard';
+import { useSearchParams } from 'react-router-dom';
 
 const ProductListing = () => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [categories, setCategories] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState("All");
+    const [searchParams] = useSearchParams();
+    const searchQuery = searchParams.get('search') || '';
 
     useEffect(() => {
         const fetchData = async () => {
@@ -27,9 +30,23 @@ const ProductListing = () => {
         fetchData();
     }, []);
 
-    const filteredProducts = selectedCategory === "All"
-        ? products
-        : products.filter(p => p.category === selectedCategory);
+    // Initial value for filteredProducts
+    let filteredProducts = products;
+
+    // Filter by Category
+    if (selectedCategory !== "All") {
+        filteredProducts = filteredProducts.filter(p => p.category === selectedCategory);
+    }
+
+    // Filter by Search Query (Client-side for now)
+    if (searchQuery) {
+        const query = searchQuery.toLowerCase();
+        filteredProducts = filteredProducts.filter(p =>
+            p.name.toLowerCase().includes(query) ||
+            p.description.toLowerCase().includes(query) ||
+            p.category.toLowerCase().includes(query)
+        );
+    }
 
     if (loading) {
         return <div className="text-center py-10 text-gray-600 dark:text-gray-400">Loading products...</div>;
@@ -37,7 +54,9 @@ const ProductListing = () => {
 
     return (
         <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">Latest Products</h1>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">
+                {searchQuery ? `Search Results for "${searchQuery}"` : 'Latest Products'}
+            </h1>
 
             {/* Category Filter */}
             <div className="flex flex-wrap gap-2 mb-8">
@@ -62,7 +81,7 @@ const ProductListing = () => {
                     ))
                 ) : (
                     <div className="col-span-full text-center text-gray-500 dark:text-gray-400 py-10 bg-white dark:bg-gray-800 rounded-lg shadow">
-                        No products found in this category.
+                        No products found {searchQuery ? `matching "${searchQuery}"` : 'in this category'}.
                     </div>
                 )}
             </div>

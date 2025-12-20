@@ -1,12 +1,8 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import api from '../services/api';
-import { useAuth } from '../context/AuthContext';
-import { Heart } from 'lucide-react';
-import toast from 'react-hot-toast';
+import { useCart } from '../context/CartContext';
 
 const ProductCard = ({ product }) => {
     const { user } = useAuth();
+    const { fetchCartCount } = useCart();
     const navigate = useNavigate();
     const [adding, setAdding] = useState(false);
 
@@ -29,6 +25,7 @@ const ProductCard = ({ product }) => {
                     quantity: 1
                 }
             });
+            await fetchCartCount();
             toast.success('Added to cart successfully!');
         } catch (error) {
             console.error("Failed to add to cart", error);

@@ -17,6 +17,7 @@ import AdminRoute from './components/AdminRoute';
 import AdminDashboard from './pages/AdminDashboard';
 import { ThemeProvider } from './context/ThemeContext';
 
+import { CartProvider } from './context/CartContext';
 import { Toaster } from 'react-hot-toast';
 
 function App() {
@@ -24,31 +25,32 @@ function App() {
     <Router>
       <ThemeProvider>
         <AuthProvider>
-          <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
-            <Toaster position="bottom-right" reverseOrder={false} />
-            <Navbar />
-            <main className="flex-grow">
-              <Routes>
-                <Route path="/" element={<LandingPage />} />
-                <Route path="/products" element={<ProductListing />} />
-                <Route path="/products/:id" element={<ProductDetails />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
+          <CartProvider>
+            <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
+              <Toaster position="bottom-right" reverseOrder={false} />
+              <Navbar />
+              <main className="flex-grow">
+                <Routes>
+                  <Route path="/" element={<LandingPage />} />
+                  <Route path="/products" element={<ProductListing />} />
+                  <Route path="/products/:id" element={<ProductDetails />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/register" element={<Register />} />
 
-                <Route path="/register" element={<Register />} />
+                  <Route path="/register" element={<Register />} />
 
-                {/* Admin Route */}
-                <Route path="/admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
+                  {/* Admin Route */}
+                  <Route path="/admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
 
-                {/* Protected Routes */}
-                <Route path="/cart" element={<PrivateRoute><Cart /></PrivateRoute>} />
-                <Route path="/wishlist" element={<PrivateRoute><Wishlist /></PrivateRoute>} />
-                <Route path="/checkout" element={<PrivateRoute><Checkout /></PrivateRoute>} />
-                <Route path="/orders" element={<PrivateRoute><OrderHistory /></PrivateRoute>} />
-              </Routes>
-            </main>
-            <Footer />
-          </div>
+                  {/* Protected Routes */}
+                  <Route path="/cart" element={<PrivateRoute><Cart /></PrivateRoute>} />
+                  <Route path="/wishlist" element={<PrivateRoute><Wishlist /></PrivateRoute>} />
+                  <Route path="/checkout" element={<PrivateRoute><Checkout /></PrivateRoute>} />
+                  <Route path="/orders" element={<PrivateRoute><OrderHistory /></PrivateRoute>} />
+                </Routes>
+              </main>
+              <Footer />
+            </div>
         </AuthProvider>
       </ThemeProvider>
     </Router>
