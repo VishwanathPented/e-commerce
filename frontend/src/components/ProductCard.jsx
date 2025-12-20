@@ -56,10 +56,6 @@ const ProductCard = ({ product }) => {
                     <span className="text-xl font-bold text-gray-900 dark:text-white">₹{product.price}</span>
                     <div className="flex space-x-2">
                         {/* Wishlist Button */}
-                        import {Heart} from 'lucide-react';
-
-                        // ... inside ProductCard component ...
-
                         <button
                             onClick={async () => {
                                 if (!user) {
