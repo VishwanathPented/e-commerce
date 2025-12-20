@@ -39,10 +39,10 @@ const ProductCard = ({ product }) => {
     };
 
     return (
-        <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm rounded-lg hover:shadow-md transition-all duration-300 flex flex-col h-full border border-gray-100 dark:border-gray-700">
-            <Link to={`/products/${product.id}`} className="block h-48 overflow-hidden relative group">
+        <div className="group bg-white dark:bg-gray-800 overflow-hidden shadow-sm rounded-xl hover:shadow-xl hover:shadow-indigo-500/10 hover:-translate-y-1 transition-all duration-300 flex flex-col h-full border border-gray-100 dark:border-gray-700">
+            <Link to={`/products/${product.id}`} className="block h-48 overflow-hidden relative">
                 <img
-                    className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
                     src={product.imageUrl || 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'}
                     alt={product.name}
                     onError={handleImageError}

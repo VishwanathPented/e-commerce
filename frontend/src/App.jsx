@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import LandingPage from './pages/LandingPage';
@@ -23,27 +24,30 @@ function App() {
     <Router>
       <ThemeProvider>
         <AuthProvider>
-          <div className="bg-gray-100 dark:bg-gray-900 min-h-screen transition-colors duration-200">
+          <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
             <Toaster position="bottom-right" reverseOrder={false} />
             <Navbar />
-            <Routes>
-              <Route path="/" element={<LandingPage />} />
-              <Route path="/products" element={<ProductListing />} />
-              <Route path="/products/:id" element={<ProductDetails />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
+            <main className="flex-grow">
+              <Routes>
+                <Route path="/" element={<LandingPage />} />
+                <Route path="/products" element={<ProductListing />} />
+                <Route path="/products/:id" element={<ProductDetails />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
 
-              <Route path="/register" element={<Register />} />
+                <Route path="/register" element={<Register />} />
 
-              {/* Admin Route */}
-              <Route path="/admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
+                {/* Admin Route */}
+                <Route path="/admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
 
-              {/* Protected Routes */}
-              <Route path="/cart" element={<PrivateRoute><Cart /></PrivateRoute>} />
-              <Route path="/wishlist" element={<PrivateRoute><Wishlist /></PrivateRoute>} />
-              <Route path="/checkout" element={<PrivateRoute><Checkout /></PrivateRoute>} />
-              <Route path="/orders" element={<PrivateRoute><OrderHistory /></PrivateRoute>} />
-            </Routes>
+                {/* Protected Routes */}
+                <Route path="/cart" element={<PrivateRoute><Cart /></PrivateRoute>} />
+                <Route path="/wishlist" element={<PrivateRoute><Wishlist /></PrivateRoute>} />
+                <Route path="/checkout" element={<PrivateRoute><Checkout /></PrivateRoute>} />
+                <Route path="/orders" element={<PrivateRoute><OrderHistory /></PrivateRoute>} />
+              </Routes>
+            </main>
+            <Footer />
           </div>
         </AuthProvider>
       </ThemeProvider>

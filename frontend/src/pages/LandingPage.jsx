@@ -1,163 +1,172 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { Truck, ShieldCheck, Clock, ArrowRight, Heart, Star } from 'lucide-react';
 
 const LandingPage = () => {
     const fadeInUp = {
-        hidden: { opacity: 0, y: 20 },
+        hidden: { opacity: 0, y: 30 },
         visible: { opacity: 1, y: 0 }
     };
 
     return (
-        <div className="bg-white dark:bg-gray-900 transition-colors duration-200">
-            {/* Hero Section */}
-            <div className="relative bg-gray-900 overflow-hidden">
-                <div className="absolute inset-0">
-                    <img
-                        className="w-full h-full object-cover opacity-60"
-                        src="https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
-                        alt="Fashion background"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-r from-gray-900 via-gray-900/40 to-transparent"></div>
-                </div>
-                <div className="relative max-w-7xl mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8">
+        <div className="bg-gray-50 dark:bg-gray-900 transition-colors duration-200 overflow-hidden">
+
+            {/* Hero Section with Animated Gradient Mesh */}
+            <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
+                {/* Background Blobs */}
+                <div className="absolute top-[-10%] left-[-10%] w-[40rem] h-[40rem] bg-purple-400 dark:bg-purple-900 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
+                <div className="absolute top-[-10%] right-[-10%] w-[40rem] h-[40rem] bg-indigo-400 dark:bg-indigo-900 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
+                <div className="absolute bottom-[-10%] left-[20%] w-[40rem] h-[40rem] bg-pink-400 dark:bg-pink-900 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-4000"></div>
+
+                <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
                     <motion.div
                         initial="hidden"
                         animate="visible"
                         transition={{ duration: 0.8 }}
                         variants={fadeInUp}
                     >
-                        <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
-                            New Arrivals are here
+                        <span className="inline-block py-1 px-3 rounded-full bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-300 text-sm font-semibold mb-6 border border-indigo-200 dark:border-indigo-700">
+                            New Season Arrivals
+                        </span>
+                        <h1 className="text-6xl md:text-8xl font-extrabold tracking-tight text-gray-900 dark:text-white mb-6">
+                            Redefine Your <br />
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
+                                Digital Lifestyle
+                            </span>
                         </h1>
-                        <p className="mt-6 text-xl text-gray-300 max-w-3xl">
-                            Discover the latest trends in fashion, electronics, and home essentials.
-                            Premium quality products for a premium lifestyle.
+                        <p className="mt-4 text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-10">
+                            Experience the future of shopping with our curated collection of premium products.
+                            Quality, style, and innovation in every package.
                         </p>
-                        <div className="mt-10">
+                        <div className="flex justify-center gap-4">
                             <Link
                                 to="/products"
-                                className="inline-block bg-indigo-600 border border-transparent py-3 px-8 rounded-md font-medium text-white hover:bg-indigo-700 transition duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                                className="inline-flex items-center bg-indigo-600 text-white px-8 py-4 rounded-full font-medium hover:bg-indigo-700 transition-all shadow-lg hover:shadow-indigo-500/25 hover:-translate-y-1"
                             >
-                                Shop Collection
+                                Shop Collection <ArrowRight className="ml-2 h-5 w-5" />
+                            </Link>
+                            <Link
+                                to="/register"
+                                className="inline-flex items-center bg-white dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700 px-8 py-4 rounded-full font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition-all hover:-translate-y-1"
+                            >
+                                Get Started
                             </Link>
                         </div>
                     </motion.div>
                 </div>
             </div>
 
-            {/* Features Section */}
-            <div className="py-12 bg-gray-50 dark:bg-gray-800">
+            {/* Glassmorphism Features Section */}
+            <div className="py-24 bg-white dark:bg-gray-900 relative">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="lg:text-center">
-                        <h2 className="text-base text-indigo-600 dark:text-indigo-400 font-semibold tracking-wide uppercase">Why Choose Us</h2>
-                        <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
-                            A better way to shop
+                    <div className="text-center mb-16">
+                        <h2 className="text-base text-indigo-600 font-semibold tracking-wide uppercase">Why Choose Us</h2>
+                        <p className="mt-2 text-4xl font-extrabold text-gray-900 dark:text-white">
+                            Shopping reimagined
                         </p>
                     </div>
 
-                    <div className="mt-10">
-                        <dl className="space-y-10 md:space-y-0 md:grid md:grid-cols-3 md:gap-x-8 md:gap-y-10">
-                            {[
-                                {
-                                    name: 'Free Shipping',
-                                    description: 'We offer free shipping on all orders over $100. No heavy lifting required.',
-                                    icon: (
-                                        <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                                        </svg>
-                                    ),
-                                },
-                                {
-                                    name: '24/7 Support',
-                                    description: 'Our team is here to help you around the clock with any questions or issues.',
-                                    icon: (
-                                        <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
-                                        </svg>
-                                    ),
-                                },
-                                {
-                                    name: 'Secure Payment',
-                                    description: 'Your payment information is processed securely. We don\'t store credit card details.',
-                                    icon: (
-                                        <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                                        </svg>
-                                    ),
-                                },
-                            ].map((feature, index) => (
-                                <motion.div
-                                    key={feature.name}
-                                    className="relative"
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: index * 0.2, duration: 0.5 }}
-                                >
-                                    <dt>
-                                        <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
-                                            {feature.icon}
-                                        </div>
-                                        <p className="ml-16 text-lg leading-6 font-medium text-gray-900 dark:text-white">{feature.name}</p>
-                                    </dt>
-                                    <dd className="mt-2 ml-16 text-base text-gray-500 dark:text-gray-400">{feature.description}</dd>
-                                </motion.div>
-                            ))}
-                        </dl>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        {[
+                            {
+                                name: 'Free Worldwide Shipping',
+                                description: 'On all orders over $100. Delivered to your doorstep with care.',
+                                icon: <Truck className="h-8 w-8 text-indigo-500" />
+                            },
+                            {
+                                name: '24/7 Premium Support',
+                                description: 'Our dedicated team is here to assist you anytime, anywhere.',
+                                icon: <Clock className="h-8 w-8 text-pink-500" />
+                            },
+                            {
+                                name: 'Secure Payments',
+                                description: 'Bank-grade encryption ensures your data is always safe.',
+                                icon: <ShieldCheck className="h-8 w-8 text-purple-500" />
+                            },
+                        ].map((feature, index) => (
+                            <motion.div
+                                key={feature.name}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: index * 0.2 }}
+                                className="p-8 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 group"
+                            >
+                                <div className="w-14 h-14 rounded-xl bg-gray-50 dark:bg-gray-700 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                    {feature.icon}
+                                </div>
+                                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">{feature.name}</h3>
+                                <p className="text-gray-500 dark:text-gray-400 leading-relaxed">
+                                    {feature.description}
+                                </p>
+                            </motion.div>
+                        ))}
                     </div>
                 </div>
             </div>
 
-            {/* Featured Categories (Static) */}
-            <div className="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
-                <div className="sm:flex sm:items-baseline sm:justify-between">
-                    <h2 className="text-2xl font-extrabold tracking-tight text-gray-900 dark:text-white">Shop by Category</h2>
-                    <Link to="/products" className="hidden text-sm font-semibold text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 sm:block">
-                        Browse all categories<span aria-hidden="true"> &rarr;</span>
-                    </Link>
-                </div>
-
-                <div className="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:grid-cols-3 md:gap-x-6 lg:gap-8">
-                    {[
-                        { name: 'Electronics', img: 'https://images.unsplash.com/photo-1498049860654-af1a5c5668ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80' },
-                        { name: 'Fashion', img: 'https://images.unsplash.com/photo-1445205170230-053b83016050?ixlib=rb-1.2.1&auto=format&fit=crop&w=1951&q=80' },
-                        { name: 'Home & Living', img: 'https://images.unsplash.com/photo-1484101403633-562f891dc89a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1953&q=80' }
-                    ].map((category) => (
-                        <div key={category.name} className="group relative rounded-lg overflow-hidden bg-white dark:bg-gray-800 shadow-lg h-80 hover:shadow-xl transition-shadow duration-300">
-                            <div className="absolute inset-0 bg-gray-200 dark:bg-gray-700">
-                                <img src={category.img} alt={category.name} className="w-full h-full object-center object-cover group-hover:opacity-75 transition-opacity" />
-                            </div>
-                            <div className="absolute inset-0 bg-gradient-to-t from-black opacity-60"></div>
-                            <div className="absolute bottom-0 p-6">
-                                <h3 className="text-xl font-bold text-white">
-                                    <Link to="/products">
-                                        <span className="absolute inset-0" />
-                                        {category.name}
-                                    </Link>
-                                </h3>
-                            </div>
+            {/* Trending Categories */}
+            <div className="py-24 bg-gray-50 dark:bg-gray-800/50">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="flex justify-between items-end mb-12">
+                        <div>
+                            <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Trending Categories</h2>
+                            <p className="mt-2 text-gray-500">Explore our most popular collections</p>
                         </div>
-                    ))}
-                </div>
-            </div>
+                        <Link to="/products" className="text-indigo-600 font-medium hover:text-indigo-700 flex items-center">
+                            View all <ArrowRight className="ml-1 h-4 w-4" />
+                        </Link>
+                    </div>
 
-            {/* Newsletter */}
-            <div className="bg-indigo-700 dark:bg-indigo-900">
-                <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
-                    <h2 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
-                        <span className="block">Ready to dive in?</span>
-                        <span className="block text-indigo-200">Start your free trial today.</span>
-                    </h2>
-                    <div className="mt-8 flex lg:mt-0 lg:flex-shrink-0">
-                        <div className="inline-flex rounded-md shadow">
-                            <Link to="/register" className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-indigo-50">
-                                Get started
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        {[
+                            { name: 'Electronics', img: 'https://images.unsplash.com/photo-1498049860654-af1a5c5668ba?auto=format&fit=crop&w=800&q=80', count: '120+ Products' },
+                            { name: 'Fashion', img: 'https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=800&q=80', count: '350+ Products' },
+                            { name: 'Home & Living', img: 'https://images.unsplash.com/photo-1484101403633-562f891dc89a?auto=format&fit=crop&w=800&q=80', count: '80+ Products' }
+                        ].map((cat) => (
+                            <Link key={cat.name} to="/products" className="group relative h-96 rounded-3xl overflow-hidden cursor-pointer">
+                                <img
+                                    src={cat.img}
+                                    alt={cat.name}
+                                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
+                                <div className="absolute bottom-0 left-0 p-8">
+                                    <h3 className="text-2xl font-bold text-white mb-1">{cat.name}</h3>
+                                    <p className="text-white/80 text-sm flex items-center gap-2">
+                                        {cat.count} <span className="w-1 h-1 bg-white rounded-full"></span> Trending
+                                    </p>
+                                </div>
                             </Link>
-                        </div>
+                        ))}
                     </div>
                 </div>
             </div>
+
+            {/* Newsletter Section */}
+            <div className="relative py-24 overflow-hidden">
+                <div className="absolute inset-0 bg-indigo-600">
+                    <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
+                </div>
+                <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
+                    <h2 className="text-3xl font-bold mb-4">Join our Exclusive Club</h2>
+                    <p className="text-indigo-100 mb-8 max-w-2xl mx-auto">
+                        Suscribe to receive 10% off your first order and exclusive access to our best offers.
+                    </p>
+                    <div className="max-w-md mx-auto flex gap-4">
+                        <input
+                            type="email"
+                            placeholder="Enter your email"
+                            className="flex-1 px-5 py-3 rounded-full text-gray-900 focus:outline-none focus:ring-2 focus:ring-white/50"
+                        />
+                        <button className="bg-white text-indigo-600 px-8 py-3 rounded-full font-bold hover:bg-gray-100 transition-colors">
+                            Subscribe
+                        </button>
+                    </div>
+                </div>
+            </div>
+
         </div>
     );
 };
