@@ -36,9 +36,13 @@ public class CartService {
 
     @Transactional
     public Cart addToCart(User user, Long productId, int quantity) {
+        System.out.println("DEBUG: Service addToCart. User ID: " + user.getId());
         Cart cart = getCart(user);
+        System.out.println("DEBUG: Cart retrieved. ID: " + cart.getId() + ", Items size: " + (cart.getItems() == null ? "null" : cart.getItems().size()));
+
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new RuntimeException("Product not found"));
+        System.out.println("DEBUG: Product found: " + product.getName());
 
         Optional<CartItem> existingItem = cart.getItems().stream()
                 .filter(item -> item.getProduct().getId().equals(productId))

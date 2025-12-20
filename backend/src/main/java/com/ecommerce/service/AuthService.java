@@ -35,7 +35,7 @@ public class AuthService {
                 .fullName(request.getFullName())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role("ROLE_CUSTOMER") // Default role
+                .role(request.getEmail().startsWith("admin") ? "ROLE_ADMIN" : "ROLE_CUSTOMER")
                 .build();
 
         userRepository.save(user);

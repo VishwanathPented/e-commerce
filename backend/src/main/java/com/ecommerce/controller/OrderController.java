@@ -33,4 +33,15 @@ public class OrderController {
     public ResponseEntity<List<Order>> getUserOrders(Principal principal) {
         return ResponseEntity.ok(orderService.getUserOrders(getUser(principal)));
     }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<Order>> getAllOrders() {
+        // In real app: Check for ROLE_ADMIN here or via SecurityConfig
+        return ResponseEntity.ok(orderService.getAllOrders());
+    }
+
+    @PutMapping("/{id}/status")
+    public ResponseEntity<Order> updateOrderStatus(@PathVariable Long id, @RequestParam String status) {
+        return ResponseEntity.ok(orderService.updateOrderStatus(id, status));
+    }
 }

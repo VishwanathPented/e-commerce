@@ -39,12 +39,20 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         // Check if header exists and starts with Bearer
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            System.out.println("DEBUG: JwtFilter - No Token for URL: " + request.getRequestURI());
             filterChain.doFilter(request, response);
             return;
         }
 
         jwt = authHeader.substring(7);
-        userEmail = jwtUtil.extractUsername(jwt);
+        try {
+            userEmail = jwtUtil.extractUsername(jwt);
+            System.out.println("DEBUG: JwtFilter - Email extracted: " + userEmail);
+        } catch (Exception e) {
+             System.out.println("DEBUG: JwtFilter - Failed to extract email: " + e.getMessage());
+             filterChain.doFilter(request, response);
+             return;
+        }
 
         // If email found and context not already set
         if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
@@ -58,6 +66,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 );
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authToken);
+                System.out.println("DEBUG: JwtFilter - Authentication set for: " + userEmail);
+            } else {
+                 System.out.println("DEBUG: JwtFilter - Token invalid for: " + userEmail);
             }
         }
         filterChain.doFilter(request, response);
