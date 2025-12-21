@@ -8,7 +8,7 @@ Includes **Razorpay** for payments and **Delhivery** for logistics.
 - **Product Catalog**: Browsing, Searching, Filtering.
 - **Cart & Order**: Persistent database-backed cart.
 - **Payments**: Integrated Razorpay for secure transactions.
-- **Shipment**: Integrated Delhivery tracking (mocked for demo).
+- **Shipment**: Integrated Delhivery tracking (mocked for demo)
 
 ---
 
