@@ -1,0 +1,32 @@
+* Host localhost:8080 was resolved.
+* IPv6: ::1
+* IPv4: 127.0.0.1
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0*   Trying [::1]:8080...
+* Connected to localhost (::1) port 8080
+> POST /api/cart/add?productId=1&quantity=1 HTTP/1.1
+> Host: localhost:8080
+> User-Agent: curl/8.7.1
+> Accept: */*
+> Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9DVVNUT01FUiIsInN1YiI6Im5ld3VzZXJAZXhhbXBsZS5jb20iLCJpYXQiOjE3NjY1MTA4MTEsImV4cCI6MTc2NjU5NzIxMX0.gi3uRhQ5EFj2n8ti0PbSzxRhzRyI31NCFTHrLqT97Go
+> 
+* Request completely sent off
+< HTTP/1.1 200 
+< Vary: Origin
+< Vary: Access-Control-Request-Method
+< Vary: Access-Control-Request-Headers
+< X-Content-Type-Options: nosniff
+< X-XSS-Protection: 0
+< Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+< Pragma: no-cache
+< Expires: 0
+< X-Frame-Options: DENY
+< Content-Type: application/json
+< Transfer-Encoding: chunked
+< Date: Tue, 23 Dec 2025 17:30:14 GMT
+< 
+{ [639 bytes data]
+100   632    0   632    0     0  56333      0 --:--:-- --:--:-- --:--:-- 57454
+* Connection #0 to host localhost left intact
+{"id":7,"user":{"id":10,"email":"newuser@example.com","password":"$2a$10$Yt7Xbm7dujKOq/Gi3V5SZut0A26CUhP5dLk3nHduLvzZqb4msfB4C","fullName":"Test User","role":"ROLE_CUSTOMER","createdAt":"2025-12-23T22:56:51.540095"},"items":[{"id":11,"product":{"id":1,"name":"Wireless Noise-Canceling Headphones","description":"Over-ear headphones with 30-hour battery life and premium sound quality.","price":299.99,"stockQuantity":50,"category":"Electronics","imageUrl":"https://godevil.in/cdn/shop/products/paisely-design-printed-green-shirt-for-men-860980.jpg?v=1695318274","createdAt":"2025-12-18T18:16:37"},"quantity":1}],"totalPrice":299.99}

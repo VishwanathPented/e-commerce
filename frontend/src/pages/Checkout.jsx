@@ -6,113 +6,111 @@ import api from '../services/api';
 const Checkout = () => {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+    const [formData, setFormData] = useState({
+        shippingName: '',
+        shippingAddress: '',
+        shippingCity: '',
+        shippingZip: '',
+        shippingPhone: ''
+    });
 
-    const loadRazorpayScript = () => {
-        return new Promise((resolve) => {
-            const script = document.createElement('script');
-            script.src = 'https://checkout.razorpay.com/v1/checkout.js';
-            script.onload = () => {
-                resolve(true);
-            };
-            script.onerror = () => {
-                resolve(false);
-            };
-            document.body.appendChild(script);
-        });
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handlePayment = async () => {
+    const handlePlaceOrder = async (e) => {
+        e.preventDefault();
         setLoading(true);
-        const res = await loadRazorpayScript();
-
-        if (!res) {
-            alert('Razorpay SDK failed to load. Are you online?');
-            setLoading(false);
-            return;
-        }
 
         try {
-            // 1. Create Order on Backend
-            // First we need to "place" the order to get an Order ID
-            const orderRes = await api.post('/orders');
-            const order = orderRes.data; // This is our internal Order entity
-
-            // 2. Create Razorpay Order via our Backend Payment API
-            const paymentOrderRes = await api.post(`/payment/create-order/${order.id}`);
-            const { razorpayOrderId, amount, currency } = paymentOrderRes.data;
-
-            // 3. Open Razorpay Options
-            const options = {
-                key: "rzp_test_YourKeyId", // Enter the Key ID generated from the Dashboard
-                amount: amount * 100,
-                currency: currency,
-                name: "ShopEasy Corp",
-                description: "Test Transaction",
-                order_id: razorpayOrderId,
-                handler: async function (response) {
-                    const data = {
-                        razorpay_order_id: response.razorpay_order_id,
-                        razorpay_payment_id: response.razorpay_payment_id,
-                        razorpay_signature: response.razorpay_signature,
-                        orderId: order.id
-                    };
-
-                    try {
-                        await api.post('/payment/verify', data);
-                        alert('Payment Successful!');
-                        navigate('/orders'); // Redirect to orders
-                    } catch (err) {
-                        alert('Payment Verification Failed');
-                        console.error(err);
-                    }
-                },
-                prefill: {
-                    name: "User Name",
-                    email: "user@example.com",
-                    contact: "9999999999"
-                },
-                theme: {
-                    color: "#61dafb"
-                }
-            };
-
-            // MOCK PAYMENT LOGIC
-            if (razorpayOrderId.startsWith("order_mock_")) {
-                console.log("Mock Order Detected. Simulating payment success...");
-                // Simulate delay
-                await new Promise(resolve => setTimeout(resolve, 1000));
-
-                // Directly call handler with mock data
-                options.handler({
-                    razorpay_order_id: razorpayOrderId,
-                    razorpay_payment_id: "pay_mock_" + Date.now(),
-                    razorpay_signature: "sig_mock_" + Date.now()
-                });
-                return; // Skip opening actual Razorpay SDK
-            }
-
-            const paymentObject = new window.Razorpay(options);
-            paymentObject.open();
-
+            await api.post('/orders', formData);
+            toast.success('Order placed successfully!');
+            navigate('/orders');
         } catch (error) {
-            console.error("Error during checkout", error);
-            alert("Error during checkout. See console.");
+            console.error("Error placing order", error);
+            const errorMessage = error.response?.data?.message || "Failed to place order. Please try again.";
+            toast.error(errorMessage);
         } finally {
             setLoading(false);
         }
     };
 
     return (
-        <div className="max-w-3xl mx-auto py-10 px-4 text-center">
-            <h1 className="text-3xl font-bold mb-6">Checkout</h1>
-            <p className="text-gray-600 mb-8">You are about to place your order.</p>
-            <button
-                onClick={handlePayment}
-                disabled={loading}
-                className="bg-indigo-600 text-white px-8 py-3 rounded-md font-bold hover:bg-indigo-700 disabled:opacity-50"
-            >
-                {loading ? 'Processing...' : 'Pay Now'}
-            </button>
+        <div className="max-w-xl mx-auto py-10 px-4">
+            <h1 className="text-3xl font-bold mb-6 text-center">Checkout (Cash on Delivery)</h1>
+            <form onSubmit={handlePlaceOrder} className="space-y-4 bg-white p-6 rounded-lg shadow-md">
+
+                <div>
+                    <label className="block text-gray-700 font-medium mb-1">Full Name</label>
+                    <input
+                        type="text"
+                        name="shippingName"
+                        value={formData.shippingName}
+                        onChange={handleChange}
+                        required
+                        className="w-full border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    />
+                </div>
+
+                <div>
+                    <label className="block text-gray-700 font-medium mb-1">Address</label>
+                    <textarea
+                        name="shippingAddress"
+                        value={formData.shippingAddress}
+                        onChange={handleChange}
+                        required
+                        className="w-full border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    />
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                    <div>
+                        <label className="block text-gray-700 font-medium mb-1">City</label>
+                        <input
+                            type="text"
+                            name="shippingCity"
+                            value={formData.shippingCity}
+                            onChange={handleChange}
+                            required
+                            className="w-full border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-gray-700 font-medium mb-1">ZIP / Postal Code</label>
+                        <input
+                            type="text"
+                            name="shippingZip"
+                            value={formData.shippingZip}
+                            onChange={handleChange}
+                            required
+                            className="w-full border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        />
+                    </div>
+                </div>
+
+                <div>
+                    <label className="block text-gray-700 font-medium mb-1">Phone Number</label>
+                    <input
+                        type="text"
+                        name="shippingPhone"
+                        value={formData.shippingPhone}
+                        onChange={handleChange}
+                        required
+                        className="w-full border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    />
+                </div>
+
+                <div className="pt-4">
+                    <button
+                        type="submit"
+                        disabled={loading}
+                        className="w-full bg-indigo-600 text-white py-3 rounded-md font-bold hover:bg-indigo-700 transition disabled:opacity-50"
+                    >
+                        {loading ? 'Placing Order...' : 'Place Order (Cash on Delivery)'}
+                    </button>
+                </div>
+
+            </form>
         </div>
     );
 };
