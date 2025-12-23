@@ -41,6 +41,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers(org.springframework.web.cors.CorsUtils::isPreFlightRequest).permitAll()
+                .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/products/categories").permitAll() // Allow categories specifically
                 .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/products/**").permitAll()
                 .requestMatchers("/api/products/**").hasRole("ADMIN") // Only Admin can modify products
                 .requestMatchers("/api/users/**").hasRole("ADMIN")

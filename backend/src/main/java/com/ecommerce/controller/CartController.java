@@ -48,4 +48,9 @@ public class CartController {
     public ResponseEntity<Cart> removeFromCart(Principal principal, @PathVariable Long productId) {
         return ResponseEntity.ok(cartService.removeFromCart(getUser(principal), productId));
     }
+
+    @PutMapping("/update")
+    public ResponseEntity<Cart> updateQuantity(Principal principal, @RequestParam Long productId, @RequestParam int quantity) {
+        return ResponseEntity.ok(cartService.updateItemQuantity(getUser(principal), productId, quantity));
+    }
 }

@@ -29,7 +29,8 @@ api.interceptors.response.use(
             localStorage.removeItem('token');
             localStorage.removeItem('role');
             // Redirect to login or reload to trigger AuthContext state update
-            window.location.href = '/login';
+            // window.location.href = '/login'; // Disabled to prevent loop/blank page issues for public routes
+            console.warn("Session expired or unauthorized. Please login again.");
         }
         return Promise.reject(error);
     }

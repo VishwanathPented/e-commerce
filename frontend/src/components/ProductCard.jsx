@@ -1,6 +1,15 @@
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Heart } from 'lucide-react';
+import { toast } from 'react-hot-toast';
+import api from '../services/api';
+import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
 
 const ProductCard = ({ product }) => {
+    // Safety check: if product is null/undefined, don't render anything to avoid crashes
+    if (!product) return null;
+
     const { user } = useAuth();
     const { fetchCartCount } = useCart();
     const navigate = useNavigate();

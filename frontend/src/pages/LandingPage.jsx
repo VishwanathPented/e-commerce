@@ -143,30 +143,6 @@ const LandingPage = () => {
                     </div>
                 </div>
             </div>
-
-            {/* Newsletter Section */}
-            <div className="relative py-24 overflow-hidden">
-                <div className="absolute inset-0 bg-indigo-600">
-                    <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
-                </div>
-                <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
-                    <h2 className="text-3xl font-bold mb-4">Join our Exclusive Club</h2>
-                    <p className="text-indigo-100 mb-8 max-w-2xl mx-auto">
-                        Suscribe to receive 10% off your first order and exclusive access to our best offers.
-                    </p>
-                    <div className="max-w-md mx-auto flex gap-4">
-                        <input
-                            type="email"
-                            placeholder="Enter your email"
-                            className="flex-1 px-5 py-3 rounded-full text-gray-900 focus:outline-none focus:ring-2 focus:ring-white/50"
-                        />
-                        <button className="bg-white text-indigo-600 px-8 py-3 rounded-full font-bold hover:bg-gray-100 transition-colors">
-                            Subscribe
-                        </button>
-                    </div>
-                </div>
-            </div>
-
         </div>
     );
 };

@@ -29,7 +29,7 @@ const Navbar = () => {
     };
 
     return (
-        <nav className="sticky top-0 z-50 bg-white/80 dark:bg-gray-800/90 backdrop-blur-md shadow-md transition-colors duration-200">
+        <nav className="sticky top-0 z-50 bg-gray-50/80 dark:bg-gray-900/90 backdrop-blur-md shadow-sm transition-colors duration-200 border-b border-gray-200/50 dark:border-gray-700/50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between h-16 items-center">
                     {/* Logo & Links */}
@@ -39,25 +39,29 @@ const Navbar = () => {
                         </Link>
                         <div className="hidden md:ml-8 md:flex md:space-x-8">
                             <Link to="/" className="text-gray-900 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</Link>
-                            <Link to="/products" className="text-gray-900 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Shop</Link>
+                            {user && (
+                                <Link to="/products" className="text-gray-900 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Shop</Link>
+                            )}
                             {user && user.role === 'ROLE_ADMIN' && (
                                 <Link to="/admin" className="text-gray-900 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Admin</Link>
                             )}
                         </div>
                     </div>
 
-                    {/* Search Bar (Hidden on mobile initially, simplified) */}
+                    {/* Search Bar (Hidden for guests) */}
                     <div className="hidden md:flex flex-1 max-w-md mx-8">
-                        <form onSubmit={handleSearch} className="relative w-full">
-                            <input
-                                type="text"
-                                placeholder="Search products..."
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                                className="w-full pl-10 pr-4 py-2 rounded-full border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all font-[Inter]"
-                            />
-                            <Search className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
-                        </form>
+                        {user && (
+                            <form onSubmit={handleSearch} className="relative w-full">
+                                <input
+                                    type="text"
+                                    placeholder="Search products..."
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                    className="w-full pl-10 pr-4 py-2 rounded-full border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all font-[Inter]"
+                                />
+                                <Search className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
+                            </form>
+                        )}
                     </div>
 
                     {/* Right Side Icons */}

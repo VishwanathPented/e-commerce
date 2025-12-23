@@ -32,15 +32,15 @@ function App() {
               <main className="flex-grow">
                 <Routes>
                   <Route path="/" element={<LandingPage />} />
-                  <Route path="/products" element={<ProductListing />} />
-                  <Route path="/products/:id" element={<ProductDetails />} />
                   <Route path="/login" element={<Login />} />
-                  <Route path="/register" element={<Register />} />
-
                   <Route path="/register" element={<Register />} />
 
                   {/* Admin Route */}
                   <Route path="/admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
+
+                  {/* Public Routes with Optional Auth */}
+                  <Route path="/products" element={<ProductListing />} />
+                  <Route path="/products/:id" element={<ProductDetails />} />
 
                   {/* Protected Routes */}
                   <Route path="/cart" element={<PrivateRoute><Cart /></PrivateRoute>} />
@@ -51,6 +51,7 @@ function App() {
               </main>
               <Footer />
             </div>
+          </CartProvider>
         </AuthProvider>
       </ThemeProvider>
     </Router>

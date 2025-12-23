@@ -72,6 +72,27 @@ public class CartService {
         return cartRepository.save(cart);
     }
 
+    @Transactional
+    public Cart updateItemQuantity(User user, Long productId, int quantity) {
+        Cart cart = getCart(user);
+        Optional<CartItem> itemOpt = cart.getItems().stream()
+                .filter(item -> item.getProduct().getId().equals(productId))
+                .findFirst();
+
+        if (itemOpt.isPresent()) {
+            CartItem item = itemOpt.get();
+            if (quantity <= 0) {
+                cart.getItems().remove(item);
+            } else {
+                item.setQuantity(quantity);
+            }
+            recalculateTotal(cart);
+            return cartRepository.save(cart);
+        }
+
+        throw new RuntimeException("Item not found in cart");
+    }
+
     private void recalculateTotal(Cart cart) {
         BigDecimal total = cart.getItems().stream()
                 .map(item -> item.getProduct().getPrice().multiply(BigDecimal.valueOf(item.getQuantity())))
