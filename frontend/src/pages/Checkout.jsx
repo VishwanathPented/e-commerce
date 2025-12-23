@@ -28,7 +28,8 @@ const Checkout = () => {
             navigate('/orders');
         } catch (error) {
             console.error("Error placing order", error);
-            const errorMessage = error.response?.data?.message || "Failed to place order. Please try again.";
+            const status = error.response?.status || "Unknown";
+            const errorMessage = error.response?.data?.message || `Failed to place order (Status: ${status}). Please try again.`;
             toast.error(errorMessage);
         } finally {
             setLoading(false);
