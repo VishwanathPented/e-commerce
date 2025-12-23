@@ -18,7 +18,7 @@ public class OrderService {
     private final CartService cartService;
 
     @Transactional
-    public Order placeOrder(User user) {
+    public Order placeOrder(User user, com.ecommerce.dto.OrderRequest request) {
         Cart cart = cartService.getCart(user);
         if (cart.getItems().isEmpty()) {
             throw new RuntimeException("Cart is empty");
@@ -28,6 +28,11 @@ public class OrderService {
                 .user(user)
                 .totalAmount(cart.getTotalPrice())
                 .status("PENDING") // Initial status
+                .shippingName(request.getShippingName())
+                .shippingAddress(request.getShippingAddress())
+                .shippingCity(request.getShippingCity())
+                .shippingZip(request.getShippingZip())
+                .shippingPhone(request.getShippingPhone())
                 .build();
 
         List<OrderItem> orderItems = cart.getItems().stream()

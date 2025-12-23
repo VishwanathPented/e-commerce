@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 import api from '../services/api';
 
 const Checkout = () => {
@@ -74,6 +75,21 @@ const Checkout = () => {
                     color: "#61dafb"
                 }
             };
+
+            // MOCK PAYMENT LOGIC
+            if (razorpayOrderId.startsWith("order_mock_")) {
+                console.log("Mock Order Detected. Simulating payment success...");
+                // Simulate delay
+                await new Promise(resolve => setTimeout(resolve, 1000));
+
+                // Directly call handler with mock data
+                options.handler({
+                    razorpay_order_id: razorpayOrderId,
+                    razorpay_payment_id: "pay_mock_" + Date.now(),
+                    razorpay_signature: "sig_mock_" + Date.now()
+                });
+                return; // Skip opening actual Razorpay SDK
+            }
 
             const paymentObject = new window.Razorpay(options);
             paymentObject.open();

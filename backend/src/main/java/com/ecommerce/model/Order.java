@@ -45,6 +45,13 @@ public class Order {
     // Razorpay Integration
     private String razorpayOrderId;
 
+    // Shipping Details
+    private String shippingName;
+    private String shippingAddress;
+    private String shippingCity;
+    private String shippingZip;
+    private String shippingPhone;
+
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime createdAt;

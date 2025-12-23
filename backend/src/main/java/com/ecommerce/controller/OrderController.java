@@ -25,8 +25,8 @@ public class OrderController {
     }
 
     @PostMapping
-    public ResponseEntity<Order> placeOrder(Principal principal) {
-        return ResponseEntity.ok(orderService.placeOrder(getUser(principal)));
+    public ResponseEntity<Order> placeOrder(@RequestBody com.ecommerce.dto.OrderRequest request, Principal principal) {
+        return ResponseEntity.ok(orderService.placeOrder(getUser(principal), request));
     }
 
     @GetMapping
